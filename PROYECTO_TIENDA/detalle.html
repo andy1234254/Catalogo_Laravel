@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Producto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="detalle-producto" class="max-w-xl mx-auto mt-10 bg-white p-8 rounded shadow"></div>
+    <script>
+        // Categorías en inglés a español (ajusta según tus categorías)
+        const categoriasES = {
+            "electronics": "Tecnología",
+            "jewelery": "Accesorios",
+            "men's clothing": "Ropa para Hombre",
+            "women's clothing": "Ropa para Mujer"
+        }; 
+
+        const params = new URLSearchParams(location.search);
+        const id = params.get('id');
+
+        async function cargarDetalle() {
+            if (!id) {
+                document.getElementById('detalle-producto').innerHTML = "<p>ID de producto no especificado.</p>";
+                return;
+            }
+            try {
+                const resp = await fetch(`http://127.0.0.1:8000/api/productos/${id}`);
+                if (!resp.ok) throw new Error("No se pudo cargar el producto");
+                const producto = await resp.json();
+                console.log(producto); // <-- Agrega esto para ver la respuesta real
+                const categoriaEsp = categoriasES[producto.categoria] || producto.categoria || "Sin categoría";
+                const imagenUrl = producto.imagen 
+                    ? (producto.imagen.startsWith('http') ? producto.imagen : `http://127.0.0.1:8000/storage/${producto.imagen}`)
+                    : '';
+                const categorias = producto.categorias && producto.categorias.length > 0
+                    ? producto.categorias.map(cat => cat.nombre).join(', ')
+                    : "Sin categoría";
+
+                document.getElementById('detalle-producto').innerHTML = `
+                    <img src="${imagenUrl}" alt="${producto.titulo || ''}" class="w-48 h-48 object-cover mx-auto mb-4">
+                    <h2 class="text-2xl font-bold mb-2 text-blue-500">${producto.titulo || ''}</h2>
+                    <p class="text-lg font-semibold mb-2 text-green-500">Precio: $${producto.precio !== undefined ? producto.precio : ''}</p>
+                    <p class="mb-2">${producto.descripcion || ''}</p>
+                    <p class="text-lg font-semibold mb-2">Categoría: ${categorias}</p>
+                    <button onclick="window.history.back()" class="bg-blue-500 text-white px-8 py-4 rounded hover:bg-blue-600">Volver</button>
+                `;
+            } catch (error) {
+                document.getElementById('detalle-producto').innerHTML = "<p>Error al cargar el producto.</p>";
+            }
+        }
+        cargarDetalle();
+    </script>
+</body>
+</html>

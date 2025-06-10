@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacto - Tienda Principal</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center; margin-top:30px;">Ubicación de la Tienda</h1>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            const ubicacion = { lat: -0.1806532, lng: -78.4678382 };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: ubicacion,
+            });
+            const marker = new google.maps.Marker({
+                position: ubicacion,
+                map: map,
+                title: "Tienda Principal",
+            });
+            const infowindow = new google.maps.InfoWindow({
+                content: "Tienda Principal"
+            });
+            marker.addListener("click", function() {
+                infowindow.open(map, marker);
+            });
+            infowindow.open(map, marker);
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
+</body>
+</html>

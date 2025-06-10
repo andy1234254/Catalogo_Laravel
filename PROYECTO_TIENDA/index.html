@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Define el tipo de documento como HTML5 -->
+    <meta charset="UTF-8">
+    <!-- Configura la página para que sea responsive en dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título de la página que aparece en la pestaña del navegador -->
+    <title>Catalogo de productos</title>
+    <!-- Incluye Tailwind CSS desde su CDN para usar sus clases -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- Encabezado de la página -->
+    <header class="bg-gray-200 border border-gray-300">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center py-4 px-6">
+            <!-- Título del sitio web -->
+            <h1 class="text-2xl font-bold text-blue-900">Tienda Online</h1>
+            <!-- Menú de navegación y botón de cerrar sesión alineados a la derecha -->
+            <div class="flex items-center space-x-6">
+                <nav>
+                    <ul class="flex space-x-6">
+                        <!-- Enlaces del menú -->
+                        <li><a href="#" class="hover:text-gray-400 font-bold">Inicio</a></li>
+                        <li><a href="#" class="hover:text-gray-400 font-bold">Productos</a></li>
+                        <li>
+                            <a href="contacto.html" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-4">Contacto</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Botón de cierre de sesión -->
+                <button id="btn-logout" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-4">
+                    Cerrar sesión
+                </button>
+            </div>
+        </div>
+        <!-- Barra de búsqueda -->
+        <div class="container mx-auto mt-4 px-6">
+            <form id="search-form" class="flex items-center mb-4">
+                <!-- Campo de texto para buscar productos -->
+                <input 
+                    type="text" 
+                    id="busqueda" 
+                    class="w-full border border-gray-300 rounded-l-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    placeholder="Buscar productos..."
+                />
+                <!-- Botón para enviar la búsqueda -->
+                <button 
+                    type="submit" 
+                    class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600"
+                >
+                    Buscar
+                </button>
+            </form>
+
+            <!-- Botones de filtro -->
+            <div class="flex space-x-4 mb-6">
+                <!-- Botón para mostrar todos los productos -->
+                <button 
+                    id="btn-todos" 
+                    class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                >
+                    Todos
+                </button>
+                <!-- Botón para filtrar productos de tecnología -->
+                <button 
+                    id="btn-tecnologia" 
+                    class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                >
+                    Tecnología
+                </button>
+                <!-- Botón para filtrar ropa para hombre -->
+                <button 
+                    id="btn-hombre" 
+                    class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                >
+                    Ropa para Hombre
+                </button>
+                <!-- Botón para filtrar ropa para mujer -->
+                <button 
+                    id="btn-mujer" 
+                    class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                >
+                    Ropa para Mujer
+                </button>
+                <!-- Botón para filtrar joyas -->
+                <button 
+                    id="btn-joyas" 
+                    class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+                >
+                    Accesorios
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido principal centrado -->
+    <main class="flex flex-col items-center justify-center h-96 bg-gray-100">
+        <!-- Título principal de la página -->
+        <h1 class="text-5xl font-bold text-dark-900 mb-4">Catálogo de Productos</h1>
+        <!-- Descripción debajo del título -->
+        <p class="text-lg font-medium text-dark-900">Explora nuestra selección de productos disponibles</p>
+    </main>
+
+    <!-- Sección para mostrar productos -->
+    <main class="max-w-7xl mx-auto px-6 pb-16 flex-1">
+        <div id="productos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Aquí se mostrarán los productos -->
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-200 text-dark py-4 border-t border-gray-400">
+        <div class="container mx-auto text-center">
+            <!-- Texto del pie de página -->
+            <p class="text-sm">&copy; 2025 Tienda Online. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        if(!localStorage.getItem('token')){
+            window.location.href = "login.html";
+        }
+    </script>
+    <!-- Archivo JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
