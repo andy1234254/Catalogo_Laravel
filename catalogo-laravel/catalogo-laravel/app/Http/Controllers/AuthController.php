@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function index()
+    {
+        // Verifica que el usuario sea admin
+        if (auth()->user()->rol !== 'admin') {
+            return response()->json(['message' => 'No autorizado'], 403);
+        }
+ 
+        // Retorna todos los usuarios
+        return User::all();
+    }
     public function register (Request $request)
     {
         // Lógica para registrar un nuevo usuario
@@ -30,6 +40,8 @@ class AuthController extends Controller
         // Retornar una respuesta exitosa
         return response()->json(['message' => 'Usuario registrado exitosamente'], 201);
     }
+    
+ 
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -58,4 +70,9 @@ class AuthController extends Controller
         return response()->json(['message' => 'Sesión cerrada exitosamente'], 200);
 
     }
+    public function me(Request $request)
+    {
+        return response()->json($request->user());
+    }
+ 
 }

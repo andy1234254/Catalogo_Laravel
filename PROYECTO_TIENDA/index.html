@@ -9,6 +9,8 @@
     <title>Catalogo de productos</title>
     <!-- Incluye Tailwind CSS desde su CDN para usar sus clases -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 </head>
 <body>
     <!-- Encabezado de la página -->
@@ -104,10 +106,46 @@
 
     <!-- Sección para mostrar productos -->
     <main class="max-w-7xl mx-auto px-6 pb-16 flex-1">
+        <!-- Agrega esto arriba del listado de productos en index.html -->
+        <div id="admin-actions" class="mb-4"></div>
         <div id="productos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <!-- Aquí se mostrarán los productos -->
         </div>
     </main>
+
+    <!-- Formulario para agregar o editar productos -->
+    <div id="modal-bg" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+      <div id="form-producto" class="bg-white p-6 rounded shadow-lg w-full max-w-md relative">
+        <h3 id="form-title" class="text-lg font-bold mb-2">Nuevo Producto</h3>
+        <!-- Spinner aquí -->
+        <div id="spinner" class="hidden flex items-center justify-center mb-2">
+          <svg class="animate-spin h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          <span id="spinner-text" class="text-blue-600 text-sm">Subiendo imagen...</span>
+        </div>
+        <form id="productoForm">
+          <input type="hidden" id="productoId" />
+          <input type="text" id="titulo" placeholder="Título" class="w-full mb-2 p-2 border rounded" required />
+          <textarea id="descripcion" placeholder="Descripción" class="w-full mb-2 p-2 border rounded" required></textarea>
+          <input type="number" id="precio" placeholder="Precio" class="w-full mb-2 p-2 border rounded" required step="0.01" min="0" />
+          <input type="number" id="stock" placeholder="Stock" class="w-full mb-2 p-2 border rounded" required />
+           <select id="categoria" class="w-full mb-2 p-2 border rounded" required>
+            <option value="">Selecciona una categoría</option>
+            <option value="1">Electrónica</option>
+            <option value="2">Ropa</option>
+            <option value="3">Hogar</option>
+          </select>
+          <input type="file" id="imagen" accept="image/*" class="w-full mb-2" />
+          <div class="flex justify-end space-x-2">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Guardar</button>
+            <button type="button" id="cancelarForm" class="bg-gray-400 text-white px-4 py-2 rounded">Cancelar</button>
+          </div>
+        </form>
+        <button id="cerrarModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
+      </div>
+    </div>
 
     <!-- Pie de página -->
     <footer class="bg-gray-200 text-dark py-4 border-t border-gray-400">

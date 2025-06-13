@@ -14,11 +14,13 @@ Route::post('/login', [AuthController::class, 'login']);
 //Rutas protegidas
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('me', [AuthController::class, 'me']);
 
 Route::middleware('is_admin')->group(function () {
+    Route::get('usuarios', [AuthController::class, 'index']);
     Route::post('productos', [ProductoController::class, 'store']);
-    Route::put('productos/{id}', [ProductoController::class, 'update']);
-    Route::delete('productos/{id}', [ProductoController::class, 'destroy']);
+    Route::put('productos/{producto}', [ProductoController::class, 'update']);
+    Route::delete('productos/{producto}', [ProductoController::class, 'destroy']);
 });
 }
 );

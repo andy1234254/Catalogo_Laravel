@@ -53,15 +53,22 @@ class ProductoController extends Controller
             'descripcion' => 'sometimes|required|string',
             'precio' => 'sometimes|required|numeric|min:0',
             'imagen' => 'nullable|string',
+            'stock' => 'sometimes|required|integer|min:0',
             'categorias' => 'nullable|array',
         ]);
-        
-        $producto->update($validated);
-        
+
+        if ($request->has('titulo')) $producto->titulo = $request->titulo;
+        if ($request->has('descripcion')) $producto->descripcion = $request->descripcion;
+        if ($request->has('precio')) $producto->precio = $request->precio;
+        if ($request->has('stock')) $producto->stock = $request->stock;
+        if ($request->has('imagen')) $producto->imagen = $request->imagen;
+
+        $producto->save();
+
         if($request->has('categorias')) {
             $producto->categorias()->sync($request->categorias);
         }
-        
+
         return response()->json($producto, 200);
         //Devolver una respuesta JSON con el producto actualizado
     }
