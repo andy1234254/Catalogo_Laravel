@@ -189,12 +189,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- FIREBASE CONFIGURACIÓN ---
     const firebaseConfig = {
-        apiKey: "AIzaSyAXAs3gZQj1oyc4hvfSf8ndsDjVOLZbLMc",
+        apiKey: "",
         authDomain: "catalogo-laravel.firebaseapp.com",
         projectId: "catalogo-laravel",
         storageBucket: "catalogo-laravel.firebasestorage.app", // <-- CORREGIDO
         messagingSenderId: "557585264194",
-        appId: "",
+        appId: "1:557585264194:web:3f0c4b8d5e2a6c7f9b8c0d",
         measurementId: "G-HD8SYL4806"
     };
     firebase.initializeApp(firebaseConfig);
