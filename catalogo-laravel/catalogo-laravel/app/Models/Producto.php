@@ -16,6 +16,7 @@ class Producto extends Model
     ];
     public function categorias()
     {
+        // Permite acceder a la categoria
         return $this->belongsToMany(Categoria::class, 'categoria_producto');
     }
     public function carritoProductos(){
